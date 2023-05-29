@@ -10,14 +10,18 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JRadioButton;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
 
 public class entry extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	public static JTextField textField;
+	public static JTextArea textArea;
 
 	/**
 	 * Launch the application.
@@ -61,12 +65,12 @@ public class entry extends JFrame {
 		textField.setBounds(283, 97, 275, 37);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+			
 		JLabel lblNewLabel_1_1 = new JLabel("\uBA54\uBAA8");
 		lblNewLabel_1_1.setBounds(138, 169, 69, 34);
 		contentPane.add(lblNewLabel_1_1);
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setBounds(138, 213, 411, 111);
 		contentPane.add(textArea);
 		
@@ -90,13 +94,46 @@ public class entry extends JFrame {
 		rdbtnNewRadioButton_4.setBounds(138, 467, 121, 23);
 		contentPane.add(rdbtnNewRadioButton_4);
 		
+		// 라디오 그룹 객체 생성
+		ButtonGroup BtnGroup = new ButtonGroup();
+		
+		// 라디오 버튼들을 그룹으로 추가
+		BtnGroup.add(rdbtnNewRadioButton);
+		BtnGroup.add(rdbtnNewRadioButton_1);
+		BtnGroup.add(rdbtnNewRadioButton_2);
+		BtnGroup.add(rdbtnNewRadioButton_3);
+		BtnGroup.add(rdbtnNewRadioButton_4);
+		
+		// registration 클래스의 인스턴스 생성
+		registration reg = new registration();
+		
 		JButton btnNewButton = new JButton("등록");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				// 일정 제목 값 받아오기
+				reg.birngTitle(textField.getText());
+				System.out.println(reg.birngTitle(textField.getText()));
+				
+				// 일정 메모 값 받아오기
+				reg.bringMemo(textArea.getText());
+				System.out.println(reg.bringMemo(textArea.getText()));
+				
+				// 선택된 라디오버튼 값 가져오기
+				JRadioButton selectBtn = null;
+		        for (Enumeration<AbstractButton> buttons = BtnGroup.getElements(); buttons.hasMoreElements();) {
+		            JRadioButton button = (JRadioButton) buttons.nextElement();
+		            if (button.isSelected()) {
+		            	selectBtn = button;
+		                break;
+		            }
+		        }
+				System.out.println(selectBtn.getActionCommand());
+				
 				dispose();
 			} // 등록 버튼 클릭
 		});
+		
 		btnNewButton.setBounds(217, 528, 97, 23);
 		contentPane.add(btnNewButton);
 		
@@ -110,5 +147,7 @@ public class entry extends JFrame {
 		});
 		btnNewButton_1.setBounds(373, 528, 97, 23);
 		contentPane.add(btnNewButton_1);
+		
+		
 	}
 }
