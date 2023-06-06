@@ -95,7 +95,7 @@ public class Regis_B extends JFrame {
 		 
 		// 여기부터 추가
 		int maxLength = 50; // 최대 글자 수
-        AbstractDocument doc = (AbstractDocument) textArea.getDocument();
+		AbstractDocument doc = (AbstractDocument) textArea.getDocument();
         doc.setDocumentFilter(new DocumentFilter() {
             @Override
             public void replace(FilterBypass fb, int offset, int length, String text, javax.swing.text.AttributeSet attrs) throws javax.swing.text.BadLocationException {
@@ -109,6 +109,22 @@ public class Regis_B extends JFrame {
                 }
             }
         }); // 여기까지
+        
+        // 일정 제목 50자 제한
+        AbstractDocument doc2 = (AbstractDocument) textField.getDocument();
+        doc2.setDocumentFilter(new DocumentFilter() {
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, javax.swing.text.AttributeSet attrs) throws javax.swing.text.BadLocationException {
+                int currentLength = fb.getDocument().getLength();
+                int overLimit = (currentLength + text.length()) - maxLength - length;
+                if (overLimit > 0) {
+                    text = text.substring(0, text.length() - overLimit);
+                }
+                if (text.length() > 0) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("\uBC18\uBCF5 \uC5C6\uC74C");
 		rdbtnNewRadioButton.setBackground(new Color(255, 255, 255));
