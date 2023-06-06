@@ -161,7 +161,10 @@ public class MainScreen_B extends JFrame implements ItemListener, ActionListener
 			    StringBuilder scheduleBuilder = new StringBuilder();
 			    
 			    ArrayList<ArrayList<String>> sendlist = new ArrayList<>(); //detail로 보낼 정보들
+			    
 			    ArrayList<Integer> ddaylist = new ArrayList<>();
+			    
+			    // DB에서 일정 데이터 가져오기
 			    for (ArrayList<String> planInfo : result.get(0)) {
 			        if (planInfo.get(2).equals(String.valueOf(year)+ String.valueOf(month)+String.valueOf(day))) {
 			        	sendlist.add(planInfo);
@@ -170,6 +173,7 @@ public class MainScreen_B extends JFrame implements ItemListener, ActionListener
 			            ddaylist.add(day);
 			        }
 			    }
+			    // DB에서 과목 데이터 가져오기
 			    for (ArrayList<String> subjectInfo : result.get(1)) {
 			        if (subjectInfo.get(2).equals(String.valueOf(year)+ String.valueOf(month)+String.valueOf(day))) {
 			            sendlist.add(subjectInfo);
@@ -178,6 +182,7 @@ public class MainScreen_B extends JFrame implements ItemListener, ActionListener
 			            ddaylist.add(day);
 			        }
 			    }
+			    
 			    String scheduleText = scheduleBuilder.toString().trim();
 			    JLabel scheduleLabel = new JLabel("<html>" + scheduleText.replace("\n", "<br>") + "</html>");
 			    Font font = scheduleLabel.getFont();
@@ -190,13 +195,14 @@ public class MainScreen_B extends JFrame implements ItemListener, ActionListener
 			    int dDayFormattedMonth = Integer.parseInt(LocalDate.now().format(DateTimeFormatter.ofPattern("M")));
 			    int dDayFormattedDay = Integer.parseInt(LocalDate.now().format(DateTimeFormatter.ofPattern("d")));
 
+			    // 일정리스트에 D-day와 일정 이름, 과목명 추가
 			    if (!scheduleText.isEmpty()) {
 			        ArrayList<Integer> distinctDdays = new ArrayList<>(new LinkedHashSet<>(ddaylist));
 			        for (int dday : distinctDdays) {
 			            int dDayMonthDiff = month - dDayFormattedMonth;
 			            int dDayDayDiff = dday - dDayFormattedDay;
 			            int dDayDiff = dDayMonthDiff * lastDay + dDayDayDiff;
-			            if(dDayDiff<0) 		dDayDiff =0; // dday가 지났을경우 [D-0] 으로 출력 , [D- -2] 형식으로 출력하고 싶으면 211,212 코드 삭제 
+			            if(dDayDiff<0) 		dDayDiff =0; // dday가 지났을경우 [D-0] 으로 출력 
 			            String dDayInfo = ("<html>" + scheduleText.replace("\n", "<br>") + "") + " [ D - " + dDayDiff + " ]";
 			            listModel.addElement(dDayInfo);
 			        }
