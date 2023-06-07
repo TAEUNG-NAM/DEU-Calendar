@@ -29,9 +29,10 @@ import javax.swing.border.LineBorder;
 public class MainScreen_B extends JFrame implements ItemListener, ActionListener{
 	Font fnt = new Font("굴림체", Font.BOLD, 15);
 	Font fnt2 = new Font("굴림체", Font.BOLD, 12);
+	
 	Schedule_C controller = new Schedule_C();
 	int studentID=20215030;
-	ArrayList<ArrayList<ArrayList<String>>> result = controller.ConnectDB(Crawling_C.student_id);
+	ArrayList<ArrayList<ArrayList<String>>> result = controller.ConnectDB(studentID);
 	 ArrayList<ArrayList<String>> subjectList = result.get(1); // 과목 정보를 가져옵니다.  (추가)
 	 ArrayList<ArrayList<String>> planList = result.get(1);
 	

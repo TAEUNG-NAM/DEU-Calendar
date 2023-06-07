@@ -44,7 +44,6 @@ public class Login_B extends JFrame {
 	 * Create the frame.
 	 */
 	public Login_B() {
-		
 		setResizable(false);
 		setTitle("\uB85C\uADF8\uC778");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,7 +76,6 @@ public class Login_B extends JFrame {
 					if(Crawling_C.DoorCrawling(textField.getText(), passwordField.getText())) {
 						dispose();
 						new MainScreen_B();
-						
 					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

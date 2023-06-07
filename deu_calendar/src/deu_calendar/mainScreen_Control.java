@@ -28,20 +28,15 @@ public class mainScreen_Control {
 	    try {
 	        con = DriverManager.getConnection(url, id, password);
 	        System.out.println("DB 연결 성공");
-	        
-	       
-	        System.out.println(Crawling_C.student_id);
 
 	        String planQuery = "SELECT * FROM PLAN WHERE STUDENT_ID = ?";
 	        System.out.println(planQuery);
 	        try (PreparedStatement stmt = con.prepareStatement(planQuery)) {
-	            stmt.setInt(1, Integer.parseInt(Crawling_C.student_id));
+	            stmt.setInt(1, studentID);
 	            ResultSet rs = stmt.executeQuery();
 
 	            ArrayList<ArrayList<String>> planList = new ArrayList<>();
 	            while (rs.next()) {
-	    	        
-
 	                ArrayList<String> planInfo = new ArrayList<>();
 	                planInfo.add(rs.getString("PLAN_TITLE"));
 	                planInfo.add(rs.getString("MEMO"));
@@ -60,10 +55,8 @@ public class mainScreen_Control {
 	        String subjectQuery = "SELECT * FROM SUBJECT WHERE STUDENT_ID = ?";
 	        System.out.println(subjectQuery);
 	        try (PreparedStatement stmt = con.prepareStatement(subjectQuery)) {
-	            stmt.setInt(1, Integer.parseInt(Crawling_C.student_id));
+	            stmt.setInt(1, studentID);
 	            ResultSet rs = stmt.executeQuery();
-	            
-	            
 
 	            ArrayList<ArrayList<String>> subjectList = new ArrayList<>();
 	            while (rs.next()) {
