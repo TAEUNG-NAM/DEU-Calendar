@@ -32,7 +32,7 @@ public class MainScreen_B extends JFrame implements ItemListener, ActionListener
 	
 	Schedule_C controller = new Schedule_C();
 	int studentID=20215030;
-	ArrayList<ArrayList<ArrayList<String>>> result = controller.ConnectDB(Crawling_C.student_id);
+	ArrayList<ArrayList<ArrayList<String>>> result = controller.ConnectDB(studentID);
 	 ArrayList<ArrayList<String>> subjectList = result.get(1); // 과목 정보를 가져옵니다.  (추가)
 	 ArrayList<ArrayList<String>> planList = result.get(1);
 	
