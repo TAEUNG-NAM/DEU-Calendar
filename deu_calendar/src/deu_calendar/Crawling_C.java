@@ -30,105 +30,161 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class Crawling_C {
+	public static String student_id;
 	public static void main(String[] args) {
 
 	}
 	
 	public static boolean DoorCrawling(String doorId, String doorPw) throws Exception{
-		// WebDriver °æ·Î ¼³Á¤(µÚ ÆÄÀÏ°æ·Î ¼öÁ¤ÇÊ¼ö)
+		student_id=doorId;
+		// WebDriver ê²½ë¡œ ì„¤ì •(ë’¤ íŒŒì¼ê²½ë¡œ ìˆ˜ì •í•„ìˆ˜)
 	    System.setProperty("webdriver.chrome.driver", "C:\\Users\\atrix\\Desktop\\Git\\DEU-Calendar\\chromedriver_win32\\chromedriver.exe");
 
-	    // Å©·Ò È­¸é ¶ç¾î¼­ ÀÛ¾÷¼ø¼­ È®ÀÎÀ» À§ÇÑ ¸Ş¼Òµå(¾ÆÁ÷Àº Àû¿ë¾ÈÇÔ, ÃßÈÄ Àû¿ëÇÏ¿© Å©·ÒÃ¢ ¾È¶ç°Ô ÇÒ ¿¹Á¤)
+	    // í¬ë¡¬ í™”ë©´ ë„ì–´ì„œ ì‘ì—…ìˆœì„œ í™•ì¸ì„ ìœ„í•œ ë©”ì†Œë“œ(ì•„ì§ì€ ì ìš©ì•ˆí•¨, ì¶”í›„ ì ìš©í•˜ì—¬ í¬ë¡¬ì°½ ì•ˆë„ê²Œ í•  ì˜ˆì •)
 	    ChromeOptions options = new ChromeOptions();
 	    options.addArguments("headless");
 	    options.addArguments("--enable-automation", "--remote-debugging-port=9222");
 	    options.addArguments("--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
 	    
-	    // WebDriver ÀÎ½ºÅÏ½º »ı¼º
+	    // WebDriver ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
 	    WebDriver driver = new ChromeDriver();
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));		// ¸í½ÃÀû´ë±â¸¦ À§ÇÔ(¼¿·¹´Ï¿òÀÌ¶û À¥µå¶óÀÌ¹ö¶û È£È¯¹®Á¦·Î ÀÌ·¸°Ô¸¸ »ç¿ë°¡´É!!)
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));		// ëª…ì‹œì ëŒ€ê¸°ë¥¼ ìœ„í•¨(ì…€ë ˆë‹ˆì›€ì´ë‘ ì›¹ë“œë¼ì´ë²„ë‘ í˜¸í™˜ë¬¸ì œë¡œ ì´ë ‡ê²Œë§Œ ì‚¬ìš©ê°€ëŠ¥!!)
 
 	    try {
-	        // ·Î±×ÀÎ ÆäÀÌÁö URL
+	        // ë¡œê·¸ì¸ í˜ì´ì§€ URL
 	        String loginUrl = "https://door.deu.ac.kr/sso/login.aspx";
 
-	        // WebDriver¸¦ ÅëÇØ ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
+	        // WebDriverë¥¼ í†µí•´ ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™
 	        driver.get(loginUrl);
 	        
-	        // ·Î±×ÀÎ¿¡ ÇÊ¿äÇÑ ¿ä¼Ò¸¦ Ã£¾Æ¼­ °ªÀ» ÀÔ·Â
+	        // ë¡œê·¸ì¸ì— í•„ìš”í•œ ìš”ì†Œë¥¼ ì°¾ì•„ì„œ ê°’ì„ ì…ë ¥
 	        WebElement usernameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("logId")));
 	        WebElement passwordInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("logPw")));
 
 	        usernameInput.sendKeys(doorId);
 	        passwordInput.sendKeys(doorPw);
 	        
-	        // ·Î±×ÀÎ ¹öÆ° Å¬¸¯
+	        // ë¡œê·¸ì¸ ë²„íŠ¼ í´ë¦­
 	        WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("body > form > div:nth-child(5) > div:nth-child(5) > div > table > tbody > tr:nth-child(1) > td:nth-child(3) > a")));
 	        loginButton.click();
 	        
-	        // ·Î±×ÀÎ ÈÄÀÇ ÆäÀÌÁö URL
+	        // ë¡œê·¸ì¸ í›„ì˜ í˜ì´ì§€ URL
 	        String loggedInUrl = "http://door.deu.ac.kr/MyPage";
-	        // ·Î±×ÀÎ ÈÄÀÇ ÆäÀÌÁö·Î ÀÌµ¿
+	        // ë¡œê·¸ì¸ í›„ì˜ í˜ì´ì§€ë¡œ ì´ë™
 	        driver.get(loggedInUrl);
 	        wait.until(ExpectedConditions.urlToBe(loggedInUrl));
 	        
 
-	        // ·Î±×ÀÎ ÈÄ ÆäÀÌÁöÀÇ HTML ÆÄ½Ì ¶Ç´Â ÇÊ¿äÇÑ ÀÛ¾÷ ¼öÇà(¼öÁ¤ ÇÊ¿ä)
-	        String fixedCode = "CHGB001";	// °ú¸ñ¿¡ °íÁ¤µÈ °ª(ÀÌ°É ÅëÇØ °³ÀÎ°ú¸ñ Á¶È¸)
+	        WebElement element = driver.findElement(By.cssSelector(".g_menu a"));
+            String text = element.getText();
+
+            System.out.println(text);
+            System.out.println(doorId);
+            
+          
+            
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            String url = "jdbc:oracle:thin:@dict.asuscomm.com:3100:system";
+            String username = "c##java";
+            String password = "java123";
+
+
+            // JDBC ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+            Connection connection = null;
+            PreparedStatement statement = null;
+
+
+                try {
+                    // Oracle ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    connection = DriverManager.getConnection(url, username, password);
+
+                    // MERGE ï¿½ï¿½ ï¿½Û¼ï¿½
+                    String sql = "MERGE INTO USER_INFO ui USING (SELECT ? AS STUDENT_ID, ? AS STUDENT_NAME FROM DUAL) d " +
+                            "ON (ui.STUDENT_ID = d.STUDENT_ID) " +
+                            "WHEN MATCHED THEN UPDATE SET ui.STUDENT_NAME = d.STUDENT_NAME " +
+                            "WHEN NOT MATCHED THEN INSERT (STUDENT_ID, STUDENT_NAME) VALUES (d.STUDENT_ID, d.STUDENT_NAME)";
+
+                    // PreparedStatement ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+                    statement = connection.prepareStatement(sql);
+
+                    // ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    statement.setInt(1, Integer.parseInt(doorId));
+                    statement.setString(2, text);
+
+                    // MERGE ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    int rowsAffected = statement.executeUpdate();
+                    System.out.println(rowsAffected + " row(s) affected.");
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } finally {
+                    // JDBC ï¿½ï¿½Ã¼ ï¿½İ±ï¿½
+                    try {
+                        if (statement != null)
+                            statement.close();
+                        if (connection != null)
+                            connection.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+	        
+	        // ë¡œê·¸ì¸ í›„ í˜ì´ì§€ì˜ HTML íŒŒì‹± ë˜ëŠ” í•„ìš”í•œ ì‘ì—… ìˆ˜í–‰(ìˆ˜ì • í•„ìš”)
+	        String fixedCode = "CHGB001";	// ê³¼ëª©ì— ê³ ì •ëœ ê°’(ì´ê±¸ í†µí•´ ê°œì¸ê³¼ëª© ì¡°íšŒ)
 	        List<WebElement> titles = driver.findElements(By.xpath("//a[contains(@href, 'javascript:goRoom') and contains(@href, '" + fixedCode + "')]"));
 	        for(int i=0; i<titles.size(); i++) {
 	        	
 	        	WebElement title = titles.get(i);
 
-	        	JavascriptExecutor executor = (JavascriptExecutor) driver;	// °ú¸ñº° ÆäÀÌÁö ÀÌµ¿Àº ÀÚ¹Ù½ºÅ©¸³Æ®¸¦ ÀÌ¿ë
-	        	executor.executeScript("arguments[0].click();", title);	// °ú¸ñº° ÆäÀÌÁö ÀÌµ¿Àº ÀÚ¹Ù½ºÅ©¸³Æ®¸¦ ÀÌ¿ë
+	        	JavascriptExecutor executor = (JavascriptExecutor) driver;	// ê³¼ëª©ë³„ í˜ì´ì§€ ì´ë™ì€ ìë°”ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì´ìš©
+	        	executor.executeScript("arguments[0].click();", title);	// ê³¼ëª©ë³„ í˜ì´ì§€ ì´ë™ì€ ìë°”ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì´ìš©
 	        	
 	        	
-	        	//System.out.println("Å×½ºÆ®");
-	        	WebElement subPage = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#lnbContent > div > div:nth-child(3) > ul > li > ul > li:nth-child(3) > a"))); // °úÁ¦ÆäÀÌÁö ÀÌµ¿
+	        	//System.out.println("í…ŒìŠ¤íŠ¸");
+	        	WebElement subPage = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#lnbContent > div > div:nth-child(3) > ul > li > ul > li:nth-child(3) > a"))); // ê³¼ì œí˜ì´ì§€ ì´ë™
 	        	subPage.click();
-	        	//System.out.println("Å×½ºÆ®2");
+	        	//System.out.println("í…ŒìŠ¤íŠ¸2");
 	        	
-	        	//WebElement subs = driver.findElement(By.className("tbl_type"));		// °úÁ¦ÆäÀÌÁö¿¡¼­ °úÁ¦¶õ ¿ä¼ÒÀúÀå
-	        	//System.out.println(subs.getText());		// ÀúÀåµÈ °úÁ¦¶õ ÀüºÎ Ãâ·Â
+	        	//WebElement subs = driver.findElement(By.className("tbl_type"));		// ê³¼ì œí˜ì´ì§€ì—ì„œ ê³¼ì œë€ ìš”ì†Œì €ì¥
+	        	//System.out.println(subs.getText());		// ì €ì¥ëœ ê³¼ì œë€ ì „ë¶€ ì¶œë ¥
 	        	
-	        	// °ú¸ñ¸í
+	        	// ê³¼ëª©ëª…
 	            WebElement selectedOption = driver.findElement(By.cssSelector("select.selectSt_0 option[selected]"));
 
-	            // °ú¸ñ¸í ÅØ½ºÆ® °¡Á®¿À±â
-	            String selectedText = selectedOption.getText(); //°ú¸ñ¸í
+	            // ê³¼ëª©ëª… í…ìŠ¤íŠ¸ ê°€ì ¸ì˜¤ê¸°
+	            String selectedText = selectedOption.getText(); //ê³¼ëª©ëª…
 
-	            // °á°ú Ãâ·Â
+	            // ê²°ê³¼ ì¶œë ¥
 	            System.out.println(selectedText);
 	            
-	         // Å×ÀÌºí Ã£±â
+	         // í…Œì´ë¸” ì°¾ê¸°
 	            WebElement table = driver.findElement(By.className("tbl_type"));
 
-	            // µî·ÏµÈ °úÁ¦°¡ ¾ø´ÂÁö È®ÀÎ
+	            // ë“±ë¡ëœ ê³¼ì œê°€ ì—†ëŠ”ì§€ í™•ì¸
 	            WebElement noAssignmentElement = table.findElement(By.tagName("td"));
 	            String noAssignmentText = noAssignmentElement.getText();
 
-	            // µî·ÏµÈ °úÁ¦°¡ ¾ø´Â °æ¿ì ´ÙÀ½ ÆäÀÌÁö·Î ÀÌµ¿
-	            if (noAssignmentText.equals("µî·ÏµÈ °úÁ¦°¡ ¾ø½À´Ï´Ù.")) {
-	                System.out.println("µî·ÏµÈ °úÁ¦°¡ ¾ø½À´Ï´Ù.");
+	            // ë“±ë¡ëœ ê³¼ì œê°€ ì—†ëŠ” ê²½ìš° ë‹¤ìŒ í˜ì´ì§€ë¡œ ì´ë™
+	            if (noAssignmentText.equals("ë“±ë¡ëœ ê³¼ì œê°€ ì—†ìŠµë‹ˆë‹¤.")) {
+	                System.out.println("ë“±ë¡ëœ ê³¼ì œê°€ ì—†ìŠµë‹ˆë‹¤.");
 	                
 	                
-	             // °­ÀÇ½Ç ÆäÀÌÁö·Î ´Ù½Ã ÀÌµ¿(2¹ø ÇÊ¼ö)
-		        	driver.navigate().back();	// µÚ·Î°¡±â ¸Ş¼Òµå
+	             // ê°•ì˜ì‹¤ í˜ì´ì§€ë¡œ ë‹¤ì‹œ ì´ë™(2ë²ˆ í•„ìˆ˜)
+		        	driver.navigate().back();	// ë’¤ë¡œê°€ê¸° ë©”ì†Œë“œ
 		        	driver.navigate().back();
 	            }
 	            else {
 
-	            // °úÁ¦°¡ ÀÖ´Â °æ¿ì Çà ¼øÈ¸
+	            // ê³¼ì œê°€ ìˆëŠ” ê²½ìš° í–‰ ìˆœíšŒ
 	            List<WebElement> rows = table.findElements(By.tagName("tr"));
 	            for (int k = 1; k < rows.size(); k++) {
 	                WebElement row = rows.get(k);
 
-	                // °úÁ¦Á¦¸ñ °¡Á®¿À±â
+	                // ê³¼ì œì œëª© ê°€ì ¸ì˜¤ê¸°
 	                WebElement titleElement = row.findElement(By.cssSelector("td:nth-child(3) > a"));
 	                String title2 = titleElement.getText();
 
-	                // Á¦Ãâ±â°£ °¡Á®¿À±â
+	                // ì œì¶œê¸°ê°„ ê°€ì ¸ì˜¤ê¸°
 	                WebElement periodElement = row.findElement(By.cssSelector("td:nth-child(4)"));
 	                String period = periodElement.getText();
 	                
@@ -155,20 +211,16 @@ public class Crawling_C {
 	
      
 	                
-	                //ÀÌ·¸°Ô ÇØµµ µÇ³ª
+	                //ì´ë ‡ê²Œ í•´ë„ ë˜ë‚˜
 	                
-	                String url = "jdbc:oracle:thin:@dict.asuscomm.com:3100:system";
-	                String username = "c##java";
-	                String password = "java123";
-
+	              
 	                String subTitle = "New_Sub_Title";
 	                String taskTitle = "New_Task_Title";
 	     
 
-	                Connection connection = null;
 	                try {
 	                    connection = DriverManager.getConnection(url, username, password);
-	                    System.out.println("DB ¿¬°á ¼º°ø");
+	                    System.out.println("DB ì—°ê²° ì„±ê³µ");
 
 	                    String sql = "MERGE INTO SUBJECT s " +
 	                            "USING (SELECT ? AS STUDENT_ID, ? AS SUB_TITLE, ? AS TASK_TITLE, ? AS SUB_DATE FROM DUAL) new_data " +
@@ -177,13 +229,13 @@ public class Crawling_C {
 	                            "    INSERT (STUDENT_ID, SUB_TITLE, TASK_TITLE, SUB_DATE) VALUES (new_data.STUDENT_ID, new_data.SUB_TITLE, new_data.TASK_TITLE, new_data.SUB_DATE)";
 
 
-	                    try (PreparedStatement statement = connection.prepareStatement(sql)) {
-	                    	statement.setInt(1, 20215030);
-	                        statement.setString(2, selectedText);
-	                        statement.setString(3, title2);
-	                        statement.setInt(4, Integer.parseInt(result));
+	                    try (PreparedStatement statement2 = connection.prepareStatement(sql)) {
+	                    	statement2.setInt(1, Integer.parseInt(student_id));
+	                        statement2.setString(2, selectedText);
+	                        statement2.setString(3, title2);
+	                        statement2.setInt(4, Integer.parseInt(result));
 
-	                        int rowsAffected = statement.executeUpdate();
+	                        int rowsAffected = statement2.executeUpdate();
 	         
 	                        System.out.println("Rows affected: " + rowsAffected);
 	                    }
@@ -193,7 +245,7 @@ public class Crawling_C {
 	                    if (connection != null) {
 	                        try {
 	                            connection.close();
-	                            System.out.println("DB ¿¬°á Á¾·á");
+	                            System.out.println("DB ì—°ê²° ì¢…ë£Œ");
 	                        } catch (SQLException e) {
 	                            e.printStackTrace();
 	                        }
@@ -201,36 +253,36 @@ public class Crawling_C {
 	                }
 	                
 
-	                // Å©·Ñ¸µÇÑ µ¥ÀÌÅÍ¸¦ DB¿¡ ÀúÀåÇÏ´Â ÄÚµå ÀÛ¼º
-	                // ¿¹½Ã·Î °úÁ¦Á¦¸ñ°ú Á¦Ãâ±â°£À» "assignments" Å×ÀÌºí¿¡ »ğÀÔÇÏ´Â ÄÚµå ÀÛ¼º
-	                // ÀÌÀü ¿¹½Ã ÄÚµå¿Í µ¿ÀÏ
+	                // í¬ë¡¤ë§í•œ ë°ì´í„°ë¥¼ DBì— ì €ì¥í•˜ëŠ” ì½”ë“œ ì‘ì„±
+	                // ì˜ˆì‹œë¡œ ê³¼ì œì œëª©ê³¼ ì œì¶œê¸°ê°„ì„ "assignments" í…Œì´ë¸”ì— ì‚½ì…í•˜ëŠ” ì½”ë“œ ì‘ì„±
+	                // ì´ì „ ì˜ˆì‹œ ì½”ë“œì™€ ë™ì¼
 
-	                // DB ¿¬°á ¼³Á¤ ¹× µ¥ÀÌÅÍ »ğÀÔ ÄÚµå »ı·«
+	                // DB ì—°ê²° ì„¤ì • ë° ë°ì´í„° ì‚½ì… ì½”ë“œ ìƒëµ
 	                
-	                System.out.println(title2); //°úÁ¦¸í
+	                System.out.println(title2); //ê³¼ì œëª…
 	               
 	            }
 	            
 	             
 	        	
-	        	// °­ÀÇ½Ç ÆäÀÌÁö·Î ´Ù½Ã ÀÌµ¿(2¹ø ÇÊ¼ö)
-	        	driver.navigate().back();	// µÚ·Î°¡±â ¸Ş¼Òµå
+	        	// ê°•ì˜ì‹¤ í˜ì´ì§€ë¡œ ë‹¤ì‹œ ì´ë™(2ë²ˆ í•„ìˆ˜)
+	        	driver.navigate().back();	// ë’¤ë¡œê°€ê¸° ë©”ì†Œë“œ
 	        	driver.navigate().back();
 	            }
 	        }
 	 
 	    } catch (Exception e) {
 			// TODO: handle exception
-	    	System.out.println("·Î±×ÀÎ ½ÇÆĞ!");
-	    	JOptionPane.showMessageDialog(null, "·Î±×ÀÎ ½ÇÆĞ!","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+	    	System.out.println("ë¡œê·¸ì¸ ì‹¤íŒ¨!");
+	    	JOptionPane.showMessageDialog(null, "ë¡œê·¸ì¸ ì‹¤íŒ¨!","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
 	    	
 	    	File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-	        String screenshotPath = "C:\\Users\\atrix\\Desktop\\failure_screenshot.png";  // ½ÇÆĞ ½Ã ½ºÅ©¸°¼¦ ÀúÀå °æ·Î
+	        String screenshotPath = "C:\\Users\\atrix\\Desktop\\failure_screenshot.png";  // ì‹¤íŒ¨ ì‹œ ìŠ¤í¬ë¦°ìƒ· ì €ì¥ ê²½ë¡œ
 	        Files.copy(screenshotFile.toPath(), new File(screenshotPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
 
 	    	return false;
 		}finally {
-	        // WebDriver Á¾·á
+	        // WebDriver ì¢…ë£Œ
 //	        driver.quit();
 	    }
 	    return true;
