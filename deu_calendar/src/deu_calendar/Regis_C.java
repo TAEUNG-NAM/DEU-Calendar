@@ -148,7 +148,7 @@ public class Regis_C {
 	
 	// 경고 메시지 메소드
 	public void showErrorMsg() {
-		JOptionPane.showMessageDialog(null, "일정 이름을 입력하지 않았습니다.","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "등록 실패","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
 	}
 
 }

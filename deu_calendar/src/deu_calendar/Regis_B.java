@@ -183,7 +183,7 @@ public class Regis_B extends JFrame {
 		                break;
 		            }
 		        }
-		        if(reg.birngTitle() == null || reg.birngTitle().isEmpty()) { // 일정 이름이 빈 경우
+		        if(reg.birngTitle() == null || reg.birngTitle().isEmpty() || reg.bringMemo() == null || reg.bringMemo().isEmpty()) { // 일정 이름이나 내용이 빈 경우
 		        	reg.showErrorMsg();
 		        }else {
 		        	reg.regist(year, month, select_day); // DB에 입력 값 삽입
