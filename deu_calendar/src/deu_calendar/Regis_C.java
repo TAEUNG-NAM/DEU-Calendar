@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 
 public class Regis_C {
 	
@@ -146,7 +148,7 @@ public class Regis_C {
 	
 	// 경고 메시지 메소드
 	public void showErrorMsg() {
-		
+		JOptionPane.showMessageDialog(null, "일정 이름을 입력하지 않았습니다.","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
 	}
 
 }

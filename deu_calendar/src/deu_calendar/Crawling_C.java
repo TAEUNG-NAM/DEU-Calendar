@@ -32,7 +32,7 @@ public class Crawling_C {
 	
 	public static boolean DoorCrawling(String doorId, String doorPw) throws Exception{
 		// WebDriver 경로 설정(뒤 파일경로 수정필수)
-	    System.setProperty("webdriver.chrome.driver", "C:\\Users\\atrix\\Desktop\\Git\\DEU-Calendar\\chromedriver_win32\\chromedriver.exe");
+	    System.setProperty("webdriver.chrome.driver", "C:\\Users\\byj06\\onedrive - bombom\\OneDrive - 동의대학교\\학교\\컴퓨터공학과\\4학년 2학기\\소프트웨어 공학\\클론5\\DEU-Calendar\\chromedriver_win32\\chromedriver.exe");
 
 	    // 크롬 화면 띄어서 작업순서 확인을 위한 메소드(아직은 적용안함, 추후 적용하여 크롬창 안띄게 할 예정)
 	    ChromeOptions options = new ChromeOptions();
@@ -41,7 +41,7 @@ public class Crawling_C {
 	    options.addArguments("--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
 	    
 	    // WebDriver 인스턴스 생성
-	    WebDriver driver = new ChromeDriver(options);
+	    WebDriver driver = new ChromeDriver();
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));		// 명시적대기를 위함(셀레니움이랑 웹드라이버랑 호환문제로 이렇게만 사용가능!!)
 
 	    try {
