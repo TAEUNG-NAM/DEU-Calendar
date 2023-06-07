@@ -195,14 +195,27 @@ public class MainScreen_B extends JFrame implements ItemListener, ActionListener
 			    int dDayFormattedMonth = Integer.parseInt(LocalDate.now().format(DateTimeFormatter.ofPattern("M")));
 			    int dDayFormattedDay = Integer.parseInt(LocalDate.now().format(DateTimeFormatter.ofPattern("d")));
 
+			    int currentYear = LocalDate.now().getYear();
+			    int currentMonth = LocalDate.now().getMonthValue();
+			    int currentDay = LocalDate.now().getDayOfMonth();
+
 			    // 일정리스트에 D-day와 일정 이름, 과목명 추가
 			    if (!scheduleText.isEmpty()) {
 			        ArrayList<Integer> distinctDdays = new ArrayList<>(new LinkedHashSet<>(ddaylist));
 			        for (int dday : distinctDdays) {
-			            int dDayMonthDiff = month - dDayFormattedMonth;
-			            int dDayDayDiff = dday - dDayFormattedDay;
-			            int dDayDiff = dDayMonthDiff * lastDay + dDayDayDiff;
-			            if(dDayDiff<0) 		dDayDiff =0; // dday가 지났을경우 [D-0] 으로 출력 
+			            int dDayMonthDiff = month - currentMonth;
+			            int dDayDayDiff = dday - currentDay;
+			            int dDayDiff = 0;
+
+			            if (year > currentYear) {
+			                dDayDiff += (year - currentYear) * 365; // 현재 연도와 다음 연도 사이의 일 수 차이를 계산합니다.
+			            }
+			            
+			            dDayDiff += dDayMonthDiff * lastDay + dDayDayDiff;
+			            if (dDayDiff < 0) {
+			                dDayDiff = 0; // dday가 지났을 경우 [D-0]으로 출력
+			            }
+
 			            String dDayInfo = ("<html>" + scheduleText.replace("\n", "<br>") + "") + " [ D - " + dDayDiff + " ]";
 			            listModel.addElement(dDayInfo);
 			        }
