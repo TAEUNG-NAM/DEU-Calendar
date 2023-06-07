@@ -6,12 +6,11 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/User/Downloads/ojdbc11.jar">
+	<classpathentry kind="lib" path="C:/Users/atrix/Desktop/Git/DEU-Calendar/ojdbc8.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/User/OneDrive - 동의대학교/학교/컴퓨터공학과/4학년 2학기/소프트웨어 공학/selenium-server-4.9.1/selenium-server-4.9.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/User/Documents/카카오톡 받은 파일/selenium-server-4.9.1/selenium-server-4.9.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/atrix/Desktop/Git/DEU-Calendar/selenium-server-4.9.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
