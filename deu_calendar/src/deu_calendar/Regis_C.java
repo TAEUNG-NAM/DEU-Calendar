@@ -60,7 +60,7 @@ public class Regis_C {
             	if(bringRepeat()=="반복 없음") {
                 String insertPlantSql = "INSERT INTO PLAN (STUDENT_ID, REGIST_DATE, PLAN_TITLE, MEMO, REPEATVALUE) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement insertPlanStatement = con.prepareStatement(insertPlantSql);
-                insertPlanStatement.setInt(1, 20215030); //임의로 db 집어넣은 값 학번
+                insertPlanStatement.setInt(1, Integer.parseInt(Crawling_C.student_id)); //임의로 db 집어넣은 값 학번
                 insertPlanStatement.setString(2, year+month+select_day); //날짜 임의 값
                 insertPlanStatement.setString(3, birngTitle()); //일정 명
                 insertPlanStatement.setString(4, bringMemo()); //메모
@@ -73,7 +73,7 @@ public class Regis_C {
             			for (int j=Integer.parseInt(month); j<13;j++) { //월 증가
             			 String insertPlantSql = "INSERT INTO PLAN (STUDENT_ID, REGIST_DATE, PLAN_TITLE, MEMO, REPEATVALUE) VALUES (?, ?, ?, ?, ?)";
                          PreparedStatement insertPlanStatement = con.prepareStatement(insertPlantSql);
-                         insertPlanStatement.setInt(1, 20215030); //임의로 db 집어넣은 값 학번
+                         insertPlanStatement.setInt(1, Integer.parseInt(Crawling_C.student_id)); //임의로 db 집어넣은 값 학번
                          insertPlanStatement.setString(2, String.valueOf(i)+String.valueOf(j)+select_day); //날짜 임의 값
                          insertPlanStatement.setString(3, birngTitle()); //일정 명
                          insertPlanStatement.setString(4, bringMemo()); //메모
@@ -87,7 +87,7 @@ public class Regis_C {
 	        		for (int j=Integer.parseInt(select_day);Integer.parseInt(year+month)+j<=Integer.parseInt(year)*12*365;j=j+1) {
 	        			 String insertPlantSql = "INSERT INTO PLAN (STUDENT_ID, REGIST_DATE, PLAN_TITLE, MEMO, REPEATVALUE) VALUES (?, ?, ?, ?, ?)";
 	                     PreparedStatement insertPlanStatement = con.prepareStatement(insertPlantSql);
-	                     insertPlanStatement.setInt(1, 20215030); //임의로 db 집어넣은 값 학번
+	                     insertPlanStatement.setInt(1, Integer.parseInt(Crawling_C.student_id)); //임의로 db 집어넣은 값 학번
 	                     insertPlanStatement.setString(2, String.valueOf(Integer.parseInt(year+month)+j)); //날짜 임의 값
 	                     insertPlanStatement.setString(3, birngTitle()); //일정 명
 	                     insertPlanStatement.setString(4, bringMemo()); //메모
@@ -100,7 +100,7 @@ public class Regis_C {
             		for(int i=Integer.parseInt(year); i<Integer.parseInt(year)+20; i++) { //년 증가
             			 String insertPlantSql = "INSERT INTO PLAN (STUDENT_ID, REGIST_DATE, PLAN_TITLE, MEMO, REPEATVALUE) VALUES (?, ?, ?, ?, ?)";
                          PreparedStatement insertPlanStatement = con.prepareStatement(insertPlantSql);
-                         insertPlanStatement.setInt(1, 20215030); //임의로 db 집어넣은 값 학번
+                         insertPlanStatement.setInt(1, Integer.parseInt(Crawling_C.student_id)); //임의로 db 집어넣은 값 학번
                          insertPlanStatement.setString(2, String.valueOf(i)+String.valueOf(month)+select_day); //날짜 임의 값
                          insertPlanStatement.setString(3, birngTitle()); //일정 명
                          insertPlanStatement.setString(4, bringMemo()); //메모
@@ -113,7 +113,7 @@ public class Regis_C {
             		for (int j=Integer.parseInt(select_day);Integer.parseInt(year+month)+j<=Integer.parseInt(year)*12*365;j=j+7) {
             			 String insertPlantSql = "INSERT INTO PLAN (STUDENT_ID, REGIST_DATE, PLAN_TITLE, MEMO, REPEATVALUE) VALUES (?, ?, ?, ?, ?)";
                          PreparedStatement insertPlanStatement = con.prepareStatement(insertPlantSql);
-                         insertPlanStatement.setInt(1, 20215030); //임의로 db 집어넣은 값 학번
+                         insertPlanStatement.setInt(1, Integer.parseInt(Crawling_C.student_id)); //임의로 db 집어넣은 값 학번
                          insertPlanStatement.setString(2, String.valueOf(Integer.parseInt(year+month)+j)); //날짜 임의 값
                          insertPlanStatement.setString(3, birngTitle()); //일정 명
                          insertPlanStatement.setString(4, bringMemo()); //메모

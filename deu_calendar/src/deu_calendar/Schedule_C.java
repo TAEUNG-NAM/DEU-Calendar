@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement; 
 
 public class Schedule_C {
-	public ArrayList<ArrayList<ArrayList<String>>> ConnectDB(int studentID) {
+	public ArrayList<ArrayList<ArrayList<String>>> ConnectDB(String studentID) {
 	    Connection con = null;
 	    String url = "jdbc:oracle:thin:@dict.asuscomm.com:3100:system";
 	    String id = "c##java";
@@ -32,7 +32,7 @@ public class Schedule_C {
 	        String planQuery = "SELECT * FROM PLAN WHERE STUDENT_ID = ?";
 	        System.out.println(planQuery);
 	        try (PreparedStatement stmt = con.prepareStatement(planQuery)) {
-	            stmt.setInt(1, studentID);
+	        	stmt.setInt(1, Integer.parseInt(studentID));
 	            ResultSet rs = stmt.executeQuery();
 
 	            ArrayList<ArrayList<String>> planList = new ArrayList<>();
@@ -53,9 +53,9 @@ public class Schedule_C {
 	        }
 
 	        String subjectQuery = "SELECT * FROM SUBJECT WHERE STUDENT_ID = ?";
-	        System.out.println(subjectQuery);
+	        
 	        try (PreparedStatement stmt = con.prepareStatement(subjectQuery)) {
-	            stmt.setInt(1, studentID);
+	        	stmt.setInt(1, Integer.parseInt(studentID));
 	            ResultSet rs = stmt.executeQuery();
 
 	            ArrayList<ArrayList<String>> subjectList = new ArrayList<>();
@@ -94,4 +94,5 @@ public class Schedule_C {
     
     	
 }
+
 
