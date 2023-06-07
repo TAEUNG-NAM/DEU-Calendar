@@ -37,7 +37,7 @@ public class MainScreen_B extends JFrame implements ItemListener, ActionListener
 	 ArrayList<ArrayList<String>> planList = result.get(1);
 	
 	//상단
-	JPanel selectPane = new JPanel(); //패널생성
+	JPanel selectPane = new JPanel(); //패널생성reg.birngTitle() == null || reg.birngTitle().isEmpty()reg.birngTitle() == null || reg.birngTitle().isEmpty()
 		JButton prevBtn = new JButton("◀"); //이전버튼
 		JButton nextBtn = new JButton("▶"); //다음버튼
 		JComboBox<Integer> yearCombo = new JComboBox<Integer>(); //년도 콤보박스추가

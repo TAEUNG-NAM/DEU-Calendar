@@ -183,14 +183,19 @@ public class Regis_B extends JFrame {
 		                break;
 		            }
 		        }
-		        reg.regist(year, month, select_day); // DB에 입력 값 삽입
+		        if(reg.birngTitle() == null || reg.birngTitle().isEmpty()) { // 일정 이름이 빈 경우
+		        	reg.showErrorMsg();
+		        }else {
+		        	reg.regist(year, month, select_day); // DB에 입력 값 삽입
 
-				Window[] windows = Window.getWindows();
-		        for (Window window : windows) {
-		            window.dispose(); // 열려있는 모든 창 종료
+					Window[] windows = Window.getWindows();
+			        for (Window window : windows) {
+			            window.dispose(); // 열려있는 모든 창 종료
+			        }
+			        MainScreen_B NewmainScreen = new MainScreen_B();
+			        NewmainScreen.setVisible(true); // 캘린더 화면 출력
 		        }
-		        MainScreen_B NewmainScreen = new MainScreen_B();
-		        NewmainScreen.setVisible(true); // 캘린더 화면 출력
+		        
 			} // 등록 버튼 클릭
 		});
 		btnNewButton.setBounds(217, 528, 97, 23);
