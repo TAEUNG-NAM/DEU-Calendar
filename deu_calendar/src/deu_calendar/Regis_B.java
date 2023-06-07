@@ -127,6 +127,7 @@ public class Regis_B extends JFrame {
         });
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("\uBC18\uBCF5 \uC5C6\uC74C");
+		rdbtnNewRadioButton.setSelected(true);
 		rdbtnNewRadioButton.setBackground(new Color(255, 255, 255));
 		rdbtnNewRadioButton.setBounds(138, 363, 121, 23);
 		contentPane.add(rdbtnNewRadioButton);
