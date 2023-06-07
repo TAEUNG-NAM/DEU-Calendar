@@ -30,13 +30,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class Crawling_C {
+	public static String student_id;
 	public static void main(String[] args) {
-
+		
 	}
 	
 	public static boolean DoorCrawling(String doorId, String doorPw) throws Exception{
+		student_id=doorId;
 		// WebDriver 경로 설정(뒤 파일경로 수정필수)
-	    System.setProperty("webdriver.chrome.driver", "C:\\Users\\atrix\\Desktop\\Git\\DEU-Calendar\\chromedriver_win32\\chromedriver.exe");
+	    System.setProperty("webdriver.chrome.driver", "C:\\Users\\User\\OneDrive - 동의대학교\\학교\\컴퓨터공학과\\4학년 2학기\\소프트웨어 공학\\클론5\\DEU-Calendar\\chromedriver_win32\\chromedriver.exe");
 
 	    // 크롬 화면 띄어서 작업순서 확인을 위한 메소드(아직은 적용안함, 추후 적용하여 크롬창 안띄게 할 예정)
 	    ChromeOptions options = new ChromeOptions();
@@ -73,6 +75,64 @@ public class Crawling_C {
 	        wait.until(ExpectedConditions.urlToBe(loggedInUrl));
 	        
 
+            //이름 가져오기
+            // 원하는 요소를 찾아서 텍스트 가져오기
+	        WebElement element = driver.findElement(By.cssSelector(".g_menu a"));
+            String text = element.getText();
+
+            System.out.println(text);
+            System.out.println(doorId);
+            
+          
+            
+            //사용자 삽입
+            String url = "jdbc:oracle:thin:@dict.asuscomm.com:3100:system";
+            String username = "c##java";
+            String password = "java123";
+
+
+            // JDBC 관련 객체 선언
+            Connection connection = null;
+            PreparedStatement statement = null;
+
+
+                try {
+                    // Oracle 데이터베이스에 연결
+                    connection = DriverManager.getConnection(url, username, password);
+
+                    // MERGE 문 작성
+                    String sql = "MERGE INTO USER_INFO ui USING (SELECT ? AS STUDENT_ID, ? AS STUDENT_NAME FROM DUAL) d " +
+                            "ON (ui.STUDENT_ID = d.STUDENT_ID) " +
+                            "WHEN MATCHED THEN UPDATE SET ui.STUDENT_NAME = d.STUDENT_NAME " +
+                            "WHEN NOT MATCHED THEN INSERT (STUDENT_ID, STUDENT_NAME) VALUES (d.STUDENT_ID, d.STUDENT_NAME)";
+
+                    // PreparedStatement 객체 생성
+                    statement = connection.prepareStatement(sql);
+
+                    // 파라미터 설정
+                    statement.setInt(1, Integer.parseInt(doorId));
+                    statement.setString(2, text);
+
+                    // MERGE 문 실행
+                    int rowsAffected = statement.executeUpdate();
+                    System.out.println(rowsAffected + " row(s) affected.");
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } finally {
+                    // JDBC 객체 닫기
+                    try {
+                        if (statement != null)
+                            statement.close();
+                        if (connection != null)
+                            connection.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            
+	        
+
 	        // 로그인 후 페이지의 HTML 파싱 또는 필요한 작업 수행(수정 필요)
 	        String fixedCode = "CHGB001";	// 과목에 고정된 값(이걸 통해 개인과목 조회)
 	        List<WebElement> titles = driver.findElements(By.xpath("//a[contains(@href, 'javascript:goRoom') and contains(@href, '" + fixedCode + "')]"));
@@ -89,8 +149,6 @@ public class Crawling_C {
 	        	subPage.click();
 	        	//System.out.println("테스트2");
 	        	
-	        	//WebElement subs = driver.findElement(By.className("tbl_type"));		// 과제페이지에서 과제란 요소저장
-	        	//System.out.println(subs.getText());		// 저장된 과제란 전부 출력
 	        	
 	        	// 과목명
 	            WebElement selectedOption = driver.findElement(By.cssSelector("select.selectSt_0 option[selected]"));
@@ -153,19 +211,13 @@ public class Crawling_C {
 	                
 	                String result = "20"+year+replaced+replaced2;
 	
-     
-	                
-	                //이렇게 해도 되나
-	                
-	                String url = "jdbc:oracle:thin:@dict.asuscomm.com:3100:system";
-	                String username = "c##java";
-	                String password = "java123";
+      
 
 	                String subTitle = "New_Sub_Title";
 	                String taskTitle = "New_Task_Title";
 	     
 
-	                Connection connection = null;
+	           
 	                try {
 	                    connection = DriverManager.getConnection(url, username, password);
 	                    System.out.println("DB 연결 성공");
@@ -177,13 +229,13 @@ public class Crawling_C {
 	                            "    INSERT (STUDENT_ID, SUB_TITLE, TASK_TITLE, SUB_DATE) VALUES (new_data.STUDENT_ID, new_data.SUB_TITLE, new_data.TASK_TITLE, new_data.SUB_DATE)";
 
 
-	                    try (PreparedStatement statement = connection.prepareStatement(sql)) {
-	                    	statement.setInt(1, 20215030);
-	                        statement.setString(2, selectedText);
-	                        statement.setString(3, title2);
-	                        statement.setInt(4, Integer.parseInt(result));
+	                    try (PreparedStatement statement2 = connection.prepareStatement(sql)) {
+	                    	statement2.setInt(1, Integer.parseInt(student_id));
+	                        statement2.setString(2, selectedText);
+	                        statement2.setString(3, title2);
+	                        statement2.setInt(4, Integer.parseInt(result));
 
-	                        int rowsAffected = statement.executeUpdate();
+	                        int rowsAffected = statement2.executeUpdate();
 	         
 	                        System.out.println("Rows affected: " + rowsAffected);
 	                    }
@@ -199,16 +251,7 @@ public class Crawling_C {
 	                        }
 	                    }
 	                }
-	                
 
-	                // 크롤링한 데이터를 DB에 저장하는 코드 작성
-	                // 예시로 과제제목과 제출기간을 "assignments" 테이블에 삽입하는 코드 작성
-	                // 이전 예시 코드와 동일
-
-	                // DB 연결 설정 및 데이터 삽입 코드 생략
-	                
-	                System.out.println(title2); //과제명
-	               
 	            }
 	            
 	             

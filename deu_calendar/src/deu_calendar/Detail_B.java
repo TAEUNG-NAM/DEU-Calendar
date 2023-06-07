@@ -90,6 +90,8 @@ public class Detail_B extends JFrame {
         lblNewLabel.setFont(font);
         contentPane.add(lblNewLabel);
 
+        
+        System.out.println(Integer.parseInt(Crawling_C.student_id));
         model = new DefaultTableModel();
         table = new JTable(model);
         
