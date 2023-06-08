@@ -87,6 +87,7 @@ public class Schedule_C {
 	        }
 	    }
 	    
+	    System.out.println(result);
 
 	    return result;
 	}

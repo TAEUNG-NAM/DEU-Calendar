@@ -43,14 +43,12 @@ public class Crawling_C {
 	    // 크롬 화면 띄어서 작업순서 확인을 위한 메소드(아직은 적용안함, 추후 적용하여 크롬창 안띄게 할 예정)
 	    ChromeOptions options = new ChromeOptions();
 	    options.addArguments("headless");
+	    options.addArguments("--enable-automation", "--remote-debugging-port=9222");
 	    options.addArguments("--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
-	    options.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36");
-		options.addArguments("lang=ko_KR");
-	    
 	    
 	    // WebDriver 인스턴스 생성
 	    WebDriver driver = new ChromeDriver();
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));		// 명시적대기를 위함(셀레니움이랑 웹드라이버랑 호환문제로 이렇게만 사용가능!!)
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));		// 명시적대기를 위함(셀레니움이랑 웹드라이버랑 호환문제로 이렇게만 사용가능!!)
 
 	    try {
 	        // 로그인 페이지 URL
@@ -77,8 +75,8 @@ public class Crawling_C {
 	        wait.until(ExpectedConditions.urlToBe(loggedInUrl));
 	        
 
-	        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated((By.xpath("//*[@id=\"gnbContent\"]/div/div[1]/a[1]"))));	// 사용자이름 요소설정
-            String text = (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].innerText;", element);	// 사용자 이름 자바스크립트로 변수에 저장
+	        WebElement element = driver.findElement(By.cssSelector(".g_menu a"));
+            String text = element.getText();
 
             System.out.println(text);
             System.out.println(doorId);
@@ -142,12 +140,10 @@ public class Crawling_C {
 	        	executor.executeScript("arguments[0].click();", title);	// 과목별 페이지 이동은 자바스크립트를 이용
 	        	
 	        	
-
-//	        	WebElement subPage = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#lnbContent > div > div:nth-child(3) > ul > li > ul > li:nth-child(3) > a"))); // 과제페이지 이동
-//	        	subPage.click();
-
-	        	WebElement subPage = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(@onclick, '/LMS/LectureRoom/CourseHomeworkStudentList/')]")));		// 과제페이지 요소설정
-	        	executor.executeScript("arguments[0].click();", subPage);	// 과제페이지 이동
+	        	//System.out.println("테스트");
+	        	WebElement subPage = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#lnbContent > div > div:nth-child(3) > ul > li > ul > li:nth-child(3) > a"))); // 과제페이지 이동
+	        	subPage.click();
+	        	//System.out.println("테스트2");
 	        	
 	        	//WebElement subs = driver.findElement(By.className("tbl_type"));		// 과제페이지에서 과제란 요소저장
 	        	//System.out.println(subs.getText());		// 저장된 과제란 전부 출력
@@ -178,8 +174,7 @@ public class Crawling_C {
 		        	driver.navigate().back();
 	            }
 	            else {
-	            	
-	            System.out.println("테스트");
+
 	            // 과제가 있는 경우 행 순회
 	            List<WebElement> rows = table.findElements(By.tagName("tr"));
 	            for (int k = 1; k < rows.size(); k++) {
@@ -288,7 +283,7 @@ public class Crawling_C {
 	    	return false;
 		}finally {
 	        // WebDriver 종료
-	        driver.quit();
+//	        driver.quit();
 	    }
 	    return true;
 	}
