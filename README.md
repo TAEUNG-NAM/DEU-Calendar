@@ -20,3 +20,7 @@
 
 ## 📃 클래스 다이어그램
 ![title](https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihaO-YNf1NV8V3FRMVFjN5nJ72zw4wC0bWyyrW4vt5OtMZW6BhYyuHrqiBbCo_FbP3mF_6FD09jEdqaf61J73XkDQrsfQtOOcns=w1920-h878-rw-v1)   
+
+## 📌 산출물
+[최종보고서](https://drive.google.com/file/d/1v91iGjYdFfcW_CW41GGQqeFplGWLk7n4/view)
+[발표자료](https://drive.google.com/file/d/15THYWUQzFvD9GCjNhQ8T9uMUk86e-Csx/view?usp=sharing)
