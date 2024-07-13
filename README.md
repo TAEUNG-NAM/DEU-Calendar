@@ -16,7 +16,7 @@
 - 팀 구성: 이해창, 남태웅, 김보민, 최민
 
 ## 📃 WBS 및 유스케이스 다이어그램
-![title](https://i.ibb.co/bHNqrHB/WBS.png)   
+![title](https://i.ibb.co/mSkWsnx/WBS.png)   
 
 ## 📃 클래스 다이어그램
 ![title](https://i.ibb.co/sQsY8CR/image.png)   
